@@ -1,9 +1,13 @@
-FROM python:3.6.1-alpine
+FROM python:3.6-alpine
 
-WORKDIR /src
+COPY ./src app
 
-ADD . /src
+COPY ./src/requirements.txt /app/requirements.txt
 
-RUN pip install -r src/requirements.txt
+WORKDIR app
 
-CMD ["python","src/mail_sender.py"]
+EXPOSE 5050:5000
+
+RUN pip install -r requirements.txt
+
+CMD [ "python", "mail_sender.py" ]

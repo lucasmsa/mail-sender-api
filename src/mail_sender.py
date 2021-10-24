@@ -23,14 +23,14 @@ def send_mail(content):
 
     mime_message['From']=config("ADDRESS")
     mime_message['To']=content["email"]
-    mime_message['Subject']="Flash Cards of the day ⚡️"
+    mime_message['Subject']="Flash Cards of the day"
     mime_message.attach(MIMEText(templated_message, 'plain'))
     smtp.send_message(mime_message)
     
     
 @application.route("/", methods = ["GET"])
 def check_server_status():
-    return jsonify({"status": "✅"})
+    return jsonify({"status": "OK"})
 
 @application.route("/send-mail", methods = ["POST"])
 def send():
@@ -40,7 +40,7 @@ def send():
         
         return jsonify({
             "status": 200,
-            "message": "E-mail sent successfully ✔"
+            "message": "E-mail sent successfully"
         })
     except Exception as exception:
         print("EXCEPTION " + str(exception))
@@ -50,7 +50,7 @@ def send():
         }), 400
 
 def flask_initialization():
-    application.run(host="localhost", port=port, threaded=True)
+    application.run(host="0.0.0.0", port=port, threaded=True)
 
 if __name__ == "__main__":
     port = 5000
